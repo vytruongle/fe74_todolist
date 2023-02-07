@@ -2,7 +2,9 @@ function getEle(id) {
   return document.getElementById(id);
 }
 var dsvl = new DsViecLam();
+var validation = new Validations();
 getLocalStorage();
+getLocalStorageComplete();
 
 function layThongTinViecLam() {
   var _jobToDo = getEle("newTask").value;
@@ -16,16 +18,28 @@ function layThongTinViecLam() {
  */
 
 getEle("addItem").addEventListener("click", function () {
+  /**
+   * check input empty
+   */
+  var isValid = true;
+  var inputValue = getEle("newTask").value;
+  isValid =
+    validation.checkEmpty(inputValue, "notiInput", "Your input box is empty") &&
+    validation.checkTaskSimilar(inputValue, "notiInput", "Task is existed");
+
+  if (!isValid) return null;
+
   var viecLam = layThongTinViecLam();
   dsvl.themViecLam(viecLam);
   renderJob(dsvl.arr);
   resetViecLam();
   setLocalStorage();
+  setLocalStorageComplete();
 });
 
 function renderJob(job) {
   var conttentHTML = "";
-  job.forEach(function (job, i) {
+  job.forEach(function (job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
         <span>${job.jobToDo}</span>
         <div>
@@ -38,14 +52,23 @@ function renderJob(job) {
   getEle("todo").innerHTML = conttentHTML;
 }
 
+function completeVL(idJob) {
+  dsvl.complete(idJob);
+  renderComplete(dsvl.arrComplete);
+  renderJob(dsvl.arr);
+  setLocalStorage();
+  setLocalStorageComplete();
+}
+
 /**
- * Xoa viec lam
+ * Xoa viec lam chua hoan thanh
  */
 
 function deleteVL(idJob) {
-  dsvl.xoaViecLam(idJob);
+  dsvl.xoaViecLam(idJob, dsvl.arr);
   renderJob(dsvl.arr);
   setLocalStorage();
+  setLocalStorageComplete();
 }
 
 /**
@@ -59,7 +82,7 @@ function renderComplete(job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
               <span>${job.jobToDo}</span>
               <div>
-                  <button class="btn pr-1" style="color: #dc3545" onclick="deleteVL(${job.id})"><i class="fa-solid fa-trash-can"></i></button>
+                  <button class="btn pr-1" style="color: #dc3545" onclick="deleteCompleteTask(${job.id})"><i class="fa-solid fa-trash-can"></i></button>
                   <button class="btn px-0" style="color: #28a745" onclick="unCompleteVL(${job.id})"><i class="fa-solid fa-circle-check"></i></button>
               </div>
           </li>`;
@@ -68,18 +91,25 @@ function renderComplete(job) {
   getEle("completed").innerHTML = conttentHTML;
 }
 
-function completeVL(idJob) {
-  dsvl.complete(idJob);
-  renderComplete(dsvl.arrComplete);
-  renderJob(dsvl.arr);
-  setLocalStorage();
-}
-
+// undo complte task
 function unCompleteVL(idJob) {
   dsvl.unComplete(idJob);
   renderComplete(dsvl.arrComplete);
   renderJob(dsvl.arr);
   setLocalStorage();
+  setLocalStorageComplete();
+}
+
+/**
+ * Xoa viec lam da hoan thanh
+ */
+
+function deleteCompleteTask(idJob) {
+  dsvl.xoaViecLam(idJob, dsvl.arrComplete);
+  renderJob(dsvl.arr);
+  renderComplete(dsvl.arrComplete);
+  setLocalStorage();
+  setLocalStorageComplete();
 }
 
 /**
@@ -98,6 +128,9 @@ function setLocalStorage() {
   //convert JSON to string
   var dataString = JSON.stringify(dsvl.arr);
   localStorage.setItem("DSVL", dataString);
+}
+
+function setLocalStorageComplete() {
   var dataStringComplete = JSON.stringify(dsvl.arrComplete);
   localStorage.setItem("DSVL_Complete", dataStringComplete);
 }
@@ -109,6 +142,9 @@ function getLocalStorage() {
   dsvl.arr = dataJSON;
   //   render tbody
   renderJob(dsvl.arr);
+}
+
+function getLocalStorageComplete() {
   var dataStringComplete = localStorage.getItem("DSVL_Complete");
   var dataCompleteJSON = JSON.parse(dataStringComplete);
   dsvl.arrComplete = dataCompleteJSON;

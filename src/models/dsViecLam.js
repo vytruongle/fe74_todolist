@@ -22,9 +22,9 @@ function DsViecLam() {
   };
 
   //xoa viec lam
-  this.xoaViecLam = function (idJob) {
-    const index = this.layIdJob(idJob, this.arr);
-    this.arr.splice(index, 1);
+  this.xoaViecLam = function (idJob, array) {
+    const index = this.layIdJob(idJob, array);
+    array.splice(index, 1);
   };
 
   //complete task
