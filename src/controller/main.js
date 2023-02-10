@@ -38,9 +38,9 @@ getEle("addItem").addEventListener("click", function () {
   setLocalStorageComplete();
 });
 
-function renderJob(job) {
+function renderJob(task) {
   var conttentHTML = "";
-  job.forEach(function (job) {
+  task.forEach(function (job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
         <span>${job.jobToDo}</span>
         <div>
