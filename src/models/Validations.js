@@ -14,9 +14,8 @@ function Validations() {
     var taskUncomplete = dsvl.arr;
     var taskComplete = dsvl.arrComplete;
     var valueLowerCase = value.toLowerCase();
-
+    var isCheck = true;
     if (taskComplete && taskUncomplete) {
-      var isCheck = true;
       for (var i = 0; i < taskUncomplete.length; i++) {
         var taskLowerCase = taskUncomplete[i].jobToDo.toLowerCase();
         if (taskLowerCase === valueLowerCase) {
@@ -41,8 +40,7 @@ function Validations() {
           getEle(messId).innerHTML = "";
         }
       }
-
-      return isCheck;
     }
+    return isCheck;
   };
 }
