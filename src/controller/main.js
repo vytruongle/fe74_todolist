@@ -142,16 +142,14 @@ function getLocalStorage() {
   var dataJSON = JSON.parse(dataString);
   dsvl.arr = dataJSON;
   //   render tbody
-  if (dsvl.arr) {
-    renderJob(dsvl.arr);
-  }
+
+  renderJob(dsvl.arr);
 }
 
 function getLocalStorageComplete() {
   var dataStringComplete = localStorage.getItem("DSVL_Complete");
   var dataCompleteJSON = JSON.parse(dataStringComplete);
   dsvl.arrComplete = dataCompleteJSON;
-  if (dsvl.arrComplete) {
-    renderComplete(dsvl.arrComplete);
-  }
+
+  renderComplete(dsvl.arrComplete);
 }

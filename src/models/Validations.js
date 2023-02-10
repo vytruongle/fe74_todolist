@@ -15,9 +15,21 @@ function Validations() {
     var taskComplete = dsvl.arrComplete;
     var valueLowerCase = value.toLowerCase();
     var isCheck = true;
-    if (taskComplete && taskUncomplete) {
-      for (var i = 0; i < taskUncomplete.length; i++) {
-        var taskLowerCase = taskUncomplete[i].jobToDo.toLowerCase();
+
+    for (var i = 0; i < taskUncomplete.length; i++) {
+      var taskLowerCase = taskUncomplete[i].jobToDo.toLowerCase();
+      if (taskLowerCase === valueLowerCase) {
+        isCheck &= false;
+        getEle(messId).style.display = "block";
+        getEle(messId).innerHTML = mess;
+        break;
+      }
+      getEle(messId).style.display = "none";
+      getEle(messId).innerHTML = "";
+    }
+    if (isCheck) {
+      for (var i = 0; i < taskComplete.length; i++) {
+        var taskLowerCase = taskComplete[i].jobToDo.toLowerCase();
         if (taskLowerCase === valueLowerCase) {
           isCheck &= false;
           getEle(messId).style.display = "block";
@@ -27,20 +39,8 @@ function Validations() {
         getEle(messId).style.display = "none";
         getEle(messId).innerHTML = "";
       }
-      if (isCheck) {
-        for (var i = 0; i < taskComplete.length; i++) {
-          var taskLowerCase = taskComplete[i].jobToDo.toLowerCase();
-          if (taskLowerCase === valueLowerCase) {
-            isCheck &= false;
-            getEle(messId).style.display = "block";
-            getEle(messId).innerHTML = mess;
-            break;
-          }
-          getEle(messId).style.display = "none";
-          getEle(messId).innerHTML = "";
-        }
-      }
     }
+
     return isCheck;
   };
 }
