@@ -3,6 +3,7 @@ function getEle(id) {
 }
 var dsvl = new DsViecLam();
 var validation = new Validations();
+
 getLocalStorage();
 getLocalStorageComplete();
 
@@ -141,12 +142,16 @@ function getLocalStorage() {
   var dataJSON = JSON.parse(dataString);
   dsvl.arr = dataJSON;
   //   render tbody
-  renderJob(dsvl.arr);
+  if (dsvl.arr) {
+    renderJob(dsvl.arr);
+  }
 }
 
 function getLocalStorageComplete() {
   var dataStringComplete = localStorage.getItem("DSVL_Complete");
   var dataCompleteJSON = JSON.parse(dataStringComplete);
   dsvl.arrComplete = dataCompleteJSON;
-  renderComplete(dsvl.arrComplete);
+  if (dsvl.arrComplete) {
+    renderComplete(dsvl.arrComplete);
+  }
 }
