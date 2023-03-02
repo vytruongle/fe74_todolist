@@ -42,6 +42,7 @@ getEle("addItem").addEventListener("click", function () {
 
 function renderJob(task) {
   var conttentHTML = "";
+  if(task.length > 0) {
   task.forEach(function (job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
         <span>${job.jobToDo}</span>
@@ -51,7 +52,7 @@ function renderJob(task) {
         </div>
     </li>`;
   });
-
+  }
   getEle("todo").innerHTML = conttentHTML;
 }
 
