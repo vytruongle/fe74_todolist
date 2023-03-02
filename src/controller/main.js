@@ -4,13 +4,10 @@ function getEle(id) {
 var dsvl = new DsViecLam();
 var validation = new Validations();
 
-if (dsvl.arr.length > 0) {
-  getLocalStorage();
-}
 
-if (dsvl.arrComplete.length > 0) {
-  getLocalStorageComplete();
-}
+getLocalStorage();
+getLocalStorageComplete();
+
 
 function layThongTinViecLam() {
   var _jobToDo = getEle("newTask").value;
