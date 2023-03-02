@@ -42,7 +42,7 @@ getEle("addItem").addEventListener("click", function () {
 
 function renderJob(task) {
   var conttentHTML = "";
-  if(typeof task != "null" && typeof task != "undefined") {
+  
   task.forEach(function (job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
         <span>${job.jobToDo}</span>
@@ -52,7 +52,7 @@ function renderJob(task) {
         </div>
     </li>`;
   });
-  }
+  
   getEle("todo").innerHTML = conttentHTML;
 }
 
@@ -144,6 +144,7 @@ function getLocalStorage() {
   //   convert string to JSON
   var dataJSON = JSON.parse(dataString);
   dsvl.arr = dataJSON;
+  console.log(dsvl.arr)
   //   render tbody
 
   renderJob(dsvl.arr);
