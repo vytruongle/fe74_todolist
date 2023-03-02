@@ -4,8 +4,11 @@ function getEle(id) {
 var dsvl = new DsViecLam();
 var validation = new Validations();
 
-if (dsvl.arr && dsvl.arrComplete) {
+if (dsvl.arr.length > 0) {
   getLocalStorage();
+}
+
+if (dsvl.arrComplete.length > 0) {
   getLocalStorageComplete();
 }
 
@@ -143,8 +146,10 @@ function getLocalStorage() {
   var dataString = localStorage.getItem("DSVL");
   //   convert string to JSON
   var dataJSON = JSON.parse(dataString);
+  if(dataJSON == "null") {
+    dsvl.arr = []
+  }
   dsvl.arr = dataJSON;
-  console.log(dsvl.arr)
   //   render tbody
 
   renderJob(dsvl.arr);
@@ -153,6 +158,9 @@ function getLocalStorage() {
 function getLocalStorageComplete() {
   var dataStringComplete = localStorage.getItem("DSVL_Complete");
   var dataCompleteJSON = JSON.parse(dataStringComplete);
+    if(dataCompleteJSON == "null") {
+    dsvl.arrComplete = []
+  }
   dsvl.arrComplete = dataCompleteJSON;
 
   renderComplete(dsvl.arrComplete);
