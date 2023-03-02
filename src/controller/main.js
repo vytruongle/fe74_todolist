@@ -42,7 +42,7 @@ getEle("addItem").addEventListener("click", function () {
 
 function renderJob(task) {
   var conttentHTML = "";
-  if(typeof task !== "null" && typeof task !== "undefined") {
+  if(typeof task != "null" && typeof task != "undefined") {
   task.forEach(function (job) {
     conttentHTML += `<li class="d-flex justify-content-between align-items-center">
         <span>${job.jobToDo}</span>
