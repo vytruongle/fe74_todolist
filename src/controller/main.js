@@ -150,6 +150,7 @@ function getLocalStorage() {
     dsvl.arr = []
   }
   dsvl.arr = dataJSON;
+  console.log(dsvl.arr)
   //   render tbody
 
   renderJob(dsvl.arr);
